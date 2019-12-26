@@ -1,0 +1,72 @@
+아스키 코드 변환
+ord()
+
+알파벳 리스트 만들기
+from string import ascii_lowercase
+print(list(ascii_lowercase))
+
+['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+딕셔너리 벨류값으로 키값 찾기 
+for name, value in dict.items():
+    if value == find_value:
+        print(name)
+
+sorted 함수
+s.sort()와 다르게 모든 iterable한 객체에 사용 가능
+a = [4,3,5,2,1]
+sorted(a)
+[1,2,3,4,5]
+
+key 인자를 넣어 정렬한다면
+
+a = [(1,4), (2,3), (5,2), (4,6)]
+
+sorted(a, key=lambda x: x[0])
+[(1, 4), (2, 3), (4, 6), (5, 2)]
+
+sorted(a, key = lambda x : x[1])
+[(5, 2), (2, 3), (1, 4), (4, 6)]
+
+
+enumerate 함수
+
+for idx, name in enumerate(["a", "b", "c"]):
+    print(idx, name)
+    
+0 a
+1 b
+2 c
+
+(lambda x,y: x + y)(10,20)
+30
+
+list(map(lambda x: x ** 2,range(5)))
+결과값을 리스트로 반환
+[0, 1, 4, 9, 16]
+
+from functools import reduce 이거 써야함
+reduce(함수,순서형 자료)
+reduce(lambda x, y: x + y, [0, 1, 2, 3, 4])
+0과 1 더하고 그 결과에 2더하고 거기다 3더함
+10
+
+filter(함수,리스트)
+list(filter(lambda x: x < 5, range(10)))
+참인 것만 반환
+[0, 1, 2, 3, 4]
+
+isdigit() 문자열이 숫자인지 아닌지 리턴
+isalpha 문자열이 문자인지 아닌지 리턴
+a = "12"
+a.isdigit()
+True
+a.isalpha()
+False
+
+a = "a"
+a.isdigit()
+True
+a.isalpha()
+True
+
