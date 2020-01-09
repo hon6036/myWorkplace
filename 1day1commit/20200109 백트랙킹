@@ -1,0 +1,75 @@
+백준 9663
+
+N-Queen 문제는 크기가 N × N인 체스판 위에 퀸 N개를 서로 공격할 수 없게 놓는 문제이다.
+
+N이 주어졌을 때, 퀸을 놓는 방법의 수를 구하는 프로그램을 작성하시오.
+
+
+n = int(input())
+count = 0
+a, b, c = [False]*n, [False]*(2*n-1), [False]*(2*n-1)
+
+def solve(i):
+    if i == n:
+        count += 1
+        return
+    for j in range(n):
+        if not (a[j] or b[i+j] or c[i-j+n-1]):
+            a[j] = b[i+j] = c[i-j+n-1] = True
+            solve(i+1)
+            a[j] = b[i+j] = c[i-j+n-1] = False
+solve(0)
+print(count)
+
+백준 2580
+스도쿠
+
+import sys
+r = sys.stdin.readline
+
+# 가로 체크
+def horizontal(x, val):
+    if val in sudoku[x]:
+        return False
+    return True
+
+# 세로 체크
+def vertical(y, val):
+    for i in range(9):
+        if val == sudoku[i][y]:
+            return False
+    return True
+
+# 3x3 체크
+def bythree(x, y, val):
+    nx = x//3 * 3
+    ny = y//3 * 3
+    for i in range(3):
+        for j in range(3):
+            if val == sudoku[nx+i][ny+j]:
+                return False
+    return True
+
+
+def DFS(index):
+    if index == len(zeros):
+        for row in sudoku:
+            for n in row:
+                print(n, end=" ")
+            print()
+        sys.exit(0)
+    else:
+        for i in range(1, 10):
+            nx = zeros[index][0]
+            ny = zeros[index][1]
+
+            # 세로, 가로, 3x3에 내가 대체하려고하는 숫자가 존재하는지 확인
+            if horizontal(nx, i) and vertical(ny, i) and bythree(nx, ny, i):
+                sudoku[nx][ny] = i
+                DFS(index+1)
+                sudoku[nx][ny] = 0
+
+
+sudoku = [list(map(int, r().split())) for _ in range(9)]
+zeros = [(i, j) for i in range(9) for j in range(9) if sudoku[i][j] == 0]
+DFS(0)
