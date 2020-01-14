@@ -1,0 +1,70 @@
+백준 11054
+
+수열 S가 어떤 수 Sk를 기준으로 S1 < S2 < ... Sk-1 < Sk > Sk+1 > ... SN-1 > SN을 만족한다면, 그 수열을 바이토닉 수열이라고 한다.
+
+예를 들어, {10, 20, 30, 25, 20}과 {10, 20, 30, 40}, {50, 40, 25, 10} 은 바이토닉 수열이지만,  {1, 2, 3, 2, 1, 2, 3, 2, 1}과 {10, 20, 30, 40, 20, 30} 은 바이토닉 수열이 아니다.
+
+수열 A가 주어졌을 때, 그 수열의 부분 수열 중 바이토닉 수열이면서 가장 긴 수열의 길이를 구하는 프로그램을 작성하시오.
+
+n = int(input())
+s = list(map(int, input().split()))
+result = [1] * n
+for i in range(1,n):
+    for j in range(i):
+        if s[j] < s[i]:
+            result[i] = max(result[i], result[j] + 1)
+resultr = [1] * n
+
+for i in range(n-1, -1, -1):
+    for j in range(n-1, i-1, -1):
+        if s[j] < s[i]:
+            resultr[i] = max(resultr[i], resultr[j] + 1)
+a = 0
+for i in range(n):
+    a = max(a,result[i] + resultr[i] - 1)
+print(a)
+
+백준 2565 
+
+두 전봇대 A와 B 사이에 하나 둘씩 전깃줄을 추가하다 보니 전깃줄이 서로 교차하는 경우가 발생하였다. 
+합선의 위험이 있어 이들 중 몇 개의 전깃줄을 없애 전깃줄이 교차하지 않도록 만들려고 한다.
+
+전깃줄이 전봇대에 연결되는 위치는 전봇대 위에서부터 차례대로 번호가 매겨진다. 
+전깃줄의 개수와 전깃줄들이 두 전봇대에 연결되는 위치의 번호가 주어질 때, 남아있는 모든 전깃줄이 서로 교차하지 않게 하기 위해 없애야 하는 전깃줄의 최소 개수를 구하는 프로그램을 작성하시오.
+
+가장 긴 증가하는 수열을 이용해 풀면 되는데
+
+n = int(input())
+s = []
+for _ in range(n):
+    a,b = map(int,input().split())
+    s.append([a,b])
+s.sort()
+result = [1] * n
+for i in range(1, n):
+    for j in range(i):
+        if s[j][1] < s[i][1]:
+            result[i] = max(result[i], result[j] + 1)
+print(n -max(result))
+            
+백준 9251
+
+LCS(Longest Common Subsequence, 최장 공통 부분 수열)문제는 두 수열이 주어졌을 때, 모두의 부분 수열이 되는 수열 중 가장 긴 것을 찾는 문제이다.
+
+예를 들어, ACAYKP와 CAPCAK의 LCS는 ACAK가 된다.
+
+import sys
+a = sys.stdin.readline().strip().upper()
+b = sys.stdin.readline().strip().upper()
+
+al=len(a)
+bl = len(b)
+m = [[0] * (bl + 1) for _ in range(al + 1)]
+for i in range(1,al +1):
+    for j in range(1,bl+1):
+        if a[i-1] == b[j-1]:
+            m[i][j] = m[i-1][j-1] +1
+        else:
+            m[i][j] = max(m[i-1][j], m[i][j-1])
+print(m[-1][-1])
+
