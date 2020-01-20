@@ -1,0 +1,164 @@
+백준 10828
+
+정수를 저장하는 스택을 구현한 다음, 입력으로 주어지는 명령을 처리하는 프로그램을 작성하시오.
+
+명령은 총 다섯 가지이다.
+
+push X: 정수 X를 스택에 넣는 연산이다.
+pop: 스택에서 가장 위에 있는 정수를 빼고, 그 수를 출력한다. 만약 스택에 들어있는 정수가 없는 경우에는 -1을 출력한다.
+size: 스택에 들어있는 정수의 개수를 출력한다.
+empty: 스택이 비어있으면 1, 아니면 0을 출력한다.
+top: 스택의 가장 위에 있는 정수를 출력한다. 만약 스택에 들어있는 정수가 없는 경우에는 -1을 출력한다.
+
+import sys
+n = int(input())
+s = []
+for _ in range(n):
+    q = sys.stdin.readline().split()
+    if q[0] == "push":
+        s.append(q[1])
+    elif q[0] == "top":
+        if not s:
+            print(-1)
+        else:
+            print(s[-1])
+    elif q[0] == "pop":
+        if not s:
+            print(-1)
+        else:
+            print(s[-1])
+            s.pop(-1)
+    elif q[0] == "size":
+        print(len(s))
+    elif q[0] == "empty":
+        if not s:
+             print(1)
+        else:
+             print(0)
+             
+
+백준 10773
+
+나코더 기장 재민이는 동아리 회식을 준비하기 위해서 장부를 관리하는 중이다.
+
+재현이는 재민이를 도와서 돈을 관리하는 중인데, 애석하게도 항상 정신없는 재현이는 돈을 실수로 잘못 부르는 사고를 치기 일쑤였다.
+
+재현이는 잘못된 수를 부를 때마다 0을 외쳐서, 가장 최근에 재민이가 쓴 수를 지우게 시킨다.
+
+재민이는 이렇게 모든 수를 받아 적은 후 그 수의 합을 알고 싶어 한다. 재민이를 도와주자!
+
+import sys
+n = int(sys.stdin.readline())
+s = []
+for i in range(n):
+    k = int(sys.stdin.readline())
+    if k == 0:
+        s.pop()
+    else:
+        s.append(k)
+        
+print(sum(s))
+
+백준 9012
+
+괄호 문자열(Parenthesis String, PS)은 두 개의 괄호 기호인 ‘(’ 와 ‘)’ 만으로 구성되어 있는 문자열이다. 그 중에서 괄호의 모양이 바르게 구성된 문자열을 올바른 괄호 문자열(Valid PS, VPS)이라고 부른다. 한 쌍의 괄호 기호로 된 “( )” 문자열은 기본 VPS 이라고 부른다. 만일 x 가 VPS 라면 이것을 하나의 괄호에 넣은 새로운 문자열 “(x)”도 VPS 가 된다. 그리고 두 VPS x 와 y를 접합(concatenation)시킨 새로운 문자열 xy도 VPS 가 된다. 예를 들어 “(())()”와 “((()))” 는 VPS 이지만 “(()(”, “(())()))” , 그리고 “(()” 는 모두 VPS 가 아닌 문자열이다. 
+
+여러분은 입력으로 주어진 괄호 문자열이 VPS 인지 아닌지를 판단해서 그 결과를 YES 와 NO 로 나타내어야 한다. 
+
+import sys
+
+n = int(input())
+for _ in range(n):
+    k = sys.stdin.readline().split()
+    k = list(''.join(k[0]))
+    s = []
+    for i in k:
+        if i == '(':
+            s.append(i)
+        else:
+            if not s:
+                s.append(i)
+            elif s[-1] == '(':
+                s.pop()
+    if not s:
+        print('YES')
+    else:
+        print("NO")
+        
+백준 4949
+
+세계는 균형이 잘 잡혀있어야 한다. 양과 음, 빛과 어둠 그리고 왼쪽 괄호와 오른쪽 괄호처럼 말이다.
+
+정민이의 임무는 어떤 문자열이 주어졌을 때, 괄호들의 균형이 잘 맞춰져 있는지 판단하는 프로그램을 짜는 것이다.
+
+문자열에 포함되는 괄호는 소괄호("()") 와 대괄호("[]")로 2종류이고, 문자열이 균형을 이루는 조건은 아래와 같다.
+
+모든 왼쪽 소괄호("(")는 오른쪽 소괄호(")")와만 짝을 이룰 수 있다.
+모든 왼쪽 대괄호("[")는 오른쪽 대괄호("]")와만 짝을 이룰 수 있다.
+모든 오른쪽 괄호들은 자신과 짝을 이룰 수 있는 왼쪽 괄호가 존재한다.
+모든 괄호들의 짝은 1:1 매칭만 가능하다. 즉, 괄호 하나가 둘 이상의 괄호와 짝지어지지 않는다.
+짝을 이루는 두 괄호가 있을 때, 그 사이에 있는 문자열도 균형이 잡혀야 한다.
+정민이를 도와 문자열이 주어졌을 때 균형잡힌 문자열인지 아닌지를 판단해보자.
+
+
+while True:
+    string=input()
+    if string==".":
+        break
+    stack=[]
+    answer=True
+    for i in string:
+        if i=='(':
+            stack.append(i)
+        elif i=='[':
+            stack.append(i)
+        elif i==')':
+            if len(stack)==0:
+                answer=False
+                break
+            if stack[-1]=='(':
+                stack.pop()
+            else:
+                answer=False
+                break
+        elif i==']':
+            if len(stack)==0:
+                answer=False
+                break
+            if stack[-1]=='[':
+                stack.pop()
+            else:
+                answer=False
+                break
+    if len(stack)==0 and answer:
+        print("yes")
+    else:
+        print("no")
+
+백준 1874
+
+1부터 n까지의 수를 스택에 넣었다가 뽑아 늘어놓음으로써, 하나의 수열을 만들 수 있다. 이때, 스택에 push하는 순서는 반드시 오름차순을 지키도록 한다고 하자. 임의의 수열이 주어졌을 때 스택을 이용해 그 수열을 만들 수 있는지 없는지, 있다면 어떤 순서로 push와 pop 연산을 수행해야 하는지를 알아낼 수 있다. 이를 계산하는 프로그램을 작성하라.
+
+res = []
+s = []
+count = 1
+p = True
+n = int(input())
+for _ in range(n):
+    k = int(input())
+    while count <= k:
+        s.append(count)
+        res.append('+')
+        count += 1
+    if s[-1] == k:
+        s.pop()
+        res.append('-')
+    else:
+        p = False
+if p == False:
+    print('NO')
+else:
+    for i in res:
+        print(i)
+
+
